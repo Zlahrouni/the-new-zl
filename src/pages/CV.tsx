@@ -195,9 +195,26 @@ const CV: React.FC = () => {
                     <div className="bg-white p-8 rounded-xl shadow-lg">
                         {/* Language Switcher and Title */}
                         <div id="name" className="flex justify-between items-center mb-6">
-                            <h1 className="text-3xl font-bold">
-                                {cvData.personalInfo.name}
-                            </h1>
+                            <div className="flex">
+                                <h1 className="text-3xl font-bold">
+                                    {cvData.personalInfo.name}
+                                </h1>
+                                {cvData.personalInfo.links.map((link, index) => (
+                                    <div
+                                        key={`link-${index}`}
+                                        id={`link-number-${index}`}
+                                        className="flex items-center gap-2"
+                                    >
+                                        <a href={link.link}>
+                                            <img
+                                                src={link.logo}
+                                                alt={`${link.name} logo`}
+                                                className="w-4 h-4"
+                                            />
+                                        </a>
+                                    </div>
+                                ))}
+                            </div>
                             <button
                                 onClick={() => setLanguage(language === 'en' ? 'fr' : 'en')}
                                 className="px-3 py-1 bg-blue-700 text-white rounded hover:bg-blue-600 transition"
@@ -209,11 +226,6 @@ const CV: React.FC = () => {
 
                         {/* Personal Info Section */}
                         <header className="mb-6">
-                            <p className="text-gray-700 mb-2">
-                                <span>{cvData.personalInfo.title}</span>
-                                <span aria-hidden="true"> | </span>
-                                <span>{cvData.personalInfo.location}</span>
-                            </p>
                             <p className="text-gray-600">{cvData.summary}</p>
                         </header>
 
