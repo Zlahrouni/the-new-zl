@@ -7,34 +7,9 @@ import {
   logoCompanieros,
   logoMeta
 } from "../assets/images.ts";
+import {LabelAssets, Translations} from "../interfaces.ts";
 
-export const translations = {
-    navbar: {
-      en: {
-        home: 'Home',
-        cv: 'CV',
-        projects: 'Projects'
-      },
-      fr: {
-        home: 'Accueil',
-        cv: 'CV',
-        projects: 'Projets'
-      }
-    },
-    comingSoon: {
-      en: {
-        title: 'Website Under Improvement',
-        description: 'Stay tuned for an exciting update!',
-        cvButton: 'View My CV',
-        socialConnect: 'Connect with Me'
-      },
-      fr: {
-        title: 'Site Web en Amélioration',
-        description: 'Restez à l\'écoute pour une mise à jour passionnante !',
-        cvButton: 'Voir mon CV',
-        socialConnect: 'Connectez-vous avec moi'
-      }
-    },
+export const translations: Translations = {
     cv: {
       en: {
         title: 'My Professional CV',
@@ -353,7 +328,7 @@ export const translations = {
     }
   };
 
-export const labelAssets = {
+export const labelAssets: LabelAssets = {
   companieros: {
     certificate: handimanagementCertificate,
     logo: logoCompanieros
@@ -363,7 +338,3 @@ export const labelAssets = {
     logo: logoMeta
   }
 };
-  
-  export const translate = (namespace: keyof typeof translations, key: string, lang: 'en' | 'fr') => {
-    return translations[namespace][lang][key];
-  };

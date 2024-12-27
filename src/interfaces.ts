@@ -1,5 +1,3 @@
-// types.ts
-export type SupportedLanguage = 'en' | 'fr';
 
 export interface TechStack {
     category: string;
@@ -99,6 +97,20 @@ export interface CVData {
     sections: Sections;
 }
 
-export interface CVProps {
-    language: SupportedLanguage;
+export interface Translations {
+    cv: {
+        en: CVData;
+        fr: CVData;
+    };
+}
+
+export interface LabelAssets {
+    companieros: {
+        certificate: string;
+        logo: string;
+    };
+    meta: {
+        certificate: string;
+        logo: string;
+    };
 }
