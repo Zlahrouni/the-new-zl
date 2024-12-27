@@ -2,6 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
 import {labelAssets, translations} from "../utils/translations.ts";
 import {useDarkMode} from "../contexts/DarkModeContext.tsx";
+import {CVData, Education, Experience} from "../interfaces.ts";
 
 const CV: React.FC = () => {
     const { language, setLanguage } = useLanguage();
@@ -42,22 +43,25 @@ const CV: React.FC = () => {
         setSelectedCertificate(null);
     };
 
-    const renderSkillCategory = (category: string) => {
-        const skills = translations.cv[language].sections.skills.items[category];
+    type CategoryKey = keyof typeof cvData.sections.skills.items;
+
+
+    const renderSkillCategory = (category: CategoryKey) => {
+        const skills = cvData.sections.skills.items[category];
         return (
-            <div key={category} className="mb-4" role="region" aria-label={translations.cv[language].sections.skills.categories[category]}>
+            <div key={category} className="mb-4" role="region" aria-label={cvData.sections.skills.categories[category]}>
                 <h3 className="font-semibold text-lg mb-2 dark:text-white">
-                    {translations.cv[language].sections.skills.categories[category]}
+                    {cvData.sections.skills.categories[category]}
                 </h3>
                 <div className="flex flex-wrap gap-2" role="list">
-                    {skills.map((skill, index) => (
+                    {skills.map((skill, i) => ( // Changed index to i for clarity
                         <span
-                            key={index}
+                            key={i}
                             role="listitem"
                             className="bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100 px-2 py-1 rounded-md text-sm"
                         >
-                            {skill}
-                        </span>
+                        {skill}
+                    </span>
                     ))}
                 </div>
             </div>
@@ -115,7 +119,7 @@ const CV: React.FC = () => {
         );
     };
 
-    const renderExperienceItem = (experience) => (
+    const renderExperienceItem = (experience: Experience) => (
         <article key={experience.company} className="mb-6 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
             <div className="flex justify-between items-center mb-2">
                 <h3 className="text-xl font-bold dark:text-white">{experience.role}</h3>
@@ -152,7 +156,7 @@ const CV: React.FC = () => {
         </article>
     );
 
-    const renderEducationItem = (education) => (
+    const renderEducationItem = (education: Education) => (
         <article key={education.institution} className="mb-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
             <div className="flex justify-between items-center mb-2">
                 <h3 className="text-xl font-bold dark:text-white">{education.degree}</h3>
@@ -169,7 +173,7 @@ const CV: React.FC = () => {
         </article>
     );
 
-    const cvData = translations.cv[language];
+    const cvData: CVData = translations.cv[language];
 
     return (
         <main className="min-h-screen pt-20 pb-20 bg-gray-100 dark:bg-gray-900 transition-colors">
@@ -183,7 +187,7 @@ const CV: React.FC = () => {
                         </div>
                         {renderLabelsSection()}
                         <div className="space-y-4" role="region" aria-labelledby="skills-section">
-                            {Object.keys(cvData.sections.skills.items)
+                            {(Object.keys(cvData.sections.skills.items) as CategoryKey[])
                                 .filter(category => category !== 'softSkills')
                                 .map(renderSkillCategory)}
                         </div>
@@ -266,7 +270,7 @@ const CV: React.FC = () => {
                                 </h2>
                                 {renderLabelsSection()}
                                 <div className="grid md:grid-cols-2 gap-4">
-                                    {Object.keys(cvData.sections.skills.items)
+                                    {(Object.keys(cvData.sections.skills.items) as CategoryKey[])
                                         .filter(category => category !== 'softSkills')
                                         .map(renderSkillCategory)}
                                 </div>
