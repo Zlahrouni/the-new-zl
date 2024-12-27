@@ -43,12 +43,13 @@ export const translations = {
         experience: 'Experience',
         personalInfo: {
           name: 'Ziad LAHROUNI',
+          email: 'ziad.lahrouni@gmail.com',
           links: [
             {
-              name: 'Github', link: 'github.com/zlahrouni', logo: githubIcon
+              name: 'Github', link: 'https://github.com/zlahrouni', logo: githubDarkIcon, darkLogo: githubIcon
             },
             {
-              name: 'Linkedin', link: 'linkedin/zlahrouni', logo: linkedInIcon
+              name: 'Linkedin', link: 'https://linkedin.com/in/ziad-lahrouni/', logo: linkedInIcon, darkLogo: linkedInIcon
             }
           ]
         },
@@ -108,22 +109,16 @@ export const translations = {
               },
               {
                 institution: 'University of Western Brittany, Brest',
-                degree: 'Bachelor\'s Degree in Application Engineering and Development (Year 3)',
+                degree: 'Bachelor\'s Degree in Application Engineering and Development (L3)',
                 period: 'September 2022 - July 2023',
                 details: ['Analysis, Design, and Web and Application Development', 'Algorithms and Data Structures', 'Architecture and Operating Systems']
               },
               {
                 institution: 'Campus Ozanam, Lille',
-                degree: 'BTS in Digital Systems: Computer Science & Network (Year 3)',
-                period: 'September 2020 - July 2023',
+                degree: 'BTS in Digital Systems: Computer Science & Network',
+                period: 'September 2020 - July 2022',
                 details: ['Design (UML Class Diagrams)', 'Network Programming', 'Object-Oriented Programming']
               },
-              {
-                institution: 'Harmonie High School, Rabat',
-                degree: 'Baccalaureate in Physical Sciences',
-                period: 'September 2019 - July 2020',
-                details: ['Physics', 'Mathematics', 'Chemistry']
-              }
             ]
           },
           experience: {
@@ -205,12 +200,13 @@ export const translations = {
         experience: 'Expérience',
         personalInfo: {
           name: 'Ziad LAHROUNI',
+          email: 'ziad.lahrouni@gmail.com',
           links: [
             {
-              name: 'Github', link: 'github.com/zlahrouni', logo: githubDarkIcon
+              name: 'Github', link: 'https://github.com/zlahrouni', logo: githubDarkIcon, darkLogo: githubIcon
             },
             {
-              name: 'Linkedin', link: 'linkedin/zlahrouni', logo: linkedInIcon
+              name: 'Linkedin', link: 'https://linkedin.com/in/ziad-lahrouni/', logo: linkedInIcon, darkLogo: linkedInIcon
             }
           ]
         },
@@ -223,7 +219,7 @@ export const translations = {
                 date: "Déc 2024",
                 skills: "Stratégies d'intégration, Diversité et handicap",
                 id: null,
-                link: null
+                link: "https://www.companieros.com/handimanagement/"
               },
               {
                 title: "Meta - Programmation avec JavaScript",
@@ -270,22 +266,16 @@ export const translations = {
               },
               {
                 institution: 'Université de Bretagne Occidentale, Brest',
-                degree: 'Licence en Ingénierie et Développement d\'Applications (Année 3)',
+                degree: 'Licence 3 en Conception et Développement d\'Applications',
                 period: 'Septembre 2022 - Juillet 2023',
                 details: ['Analyse, Conception, et Développement Web et Applicatif', 'Algorithmes et Structures de Données', 'Architecture et Systèmes d\'Exploitation']
               },
               {
                 institution: 'Campus Ozanam, Lille',
-                degree: 'BTS en Systèmes Numériques : Informatique & Réseaux (Année 3)',
-                period: 'Septembre 2020 - Juillet 2023',
+                degree: 'BTS en Systèmes Numériques : Informatique & Réseaux',
+                period: 'Septembre 2020 - Juillet 2022',
                 details: ['Conception (Diagrammes de Classes UML)', 'Programmation Réseau', 'Programmation Orientée Objet']
               },
-              {
-                institution: 'Lycée Harmonie, Rabat',
-                degree: 'Baccalauréat en Sciences Physiques',
-                period: 'Septembre 2019 - Juillet 2020',
-                details: ['Physique', 'Mathématiques', 'Chimie']
-              }
             ]
           },
           experience: {
