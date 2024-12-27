@@ -5,8 +5,7 @@ import {useDarkMode} from "../contexts/DarkModeContext.tsx";
 
 const CV: React.FC = () => {
     const { language, setLanguage } = useLanguage();
-    const [selectedCertificate, setSelectedCertificate] = useState<{title: string, image: string}>(null);
-    const modalRef = useRef<HTMLDivElement>(null);
+    const [selectedCertificate, setSelectedCertificate] = useState<{ title: string; image: string } | null>(null);    const modalRef = useRef<HTMLDivElement>(null);
     const { isDark, toggleDark } = useDarkMode();
 
 
@@ -43,7 +42,7 @@ const CV: React.FC = () => {
         setSelectedCertificate(null);
     };
 
-    const renderSkillCategory = (category) => {
+    const renderSkillCategory = (category: string) => {
         const skills = translations.cv[language].sections.skills.items[category];
         return (
             <div key={category} className="mb-4" role="region" aria-label={translations.cv[language].sections.skills.categories[category]}>
