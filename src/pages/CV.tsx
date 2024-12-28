@@ -35,6 +35,25 @@ const CV: React.FC = () => {
         };
     }, [selectedCertificate]);
 
+    const HeaderControls = () => (
+        <div className="flex gap-2 items-center">
+            <button
+                onClick={() => setLanguage(language === 'en' ? 'fr' : 'en')}
+                className="px-2 py-1 sm:px-3 sm:py-1 text-sm sm:text-base bg-blue-700 text-white rounded-lg hover:bg-blue-600 transition"
+                aria-label={`Switch to ${language === 'en' ? 'French' : 'English'}`}
+            >
+                {language === 'en' ? 'FR' : 'EN'}
+            </button>
+            <button
+                onClick={toggleDark}
+                className="p-1.5 sm:p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-sm sm:text-base"
+                aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+            >
+                {isDark ? '🌞' : '🌙'}
+            </button>
+        </div>
+    );
+
     const handleShowCertificate = (certificate: string, title: string) => {
         setSelectedCertificate({title: title, image: certificate});
     };
@@ -120,10 +139,10 @@ const CV: React.FC = () => {
     };
 
     const renderExperienceItem = (experience: Experience) => (
-        <article key={experience.company} className="mb-6 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-            <div className="flex justify-between items-center mb-2">
-                <h3 className="text-xl font-bold dark:text-white">{experience.role}</h3>
-                <time dateTime={experience.period} className="text-gray-600 px-5 dark:text-gray-300 text-sm">
+        <article key={experience.company} className="mb-6 p-3 sm:p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-2 gap-1">
+                <h3 className="text-lg sm:text-xl font-bold dark:text-white">{experience.role}</h3>
+                <time dateTime={experience.period} className="text-gray-600 dark:text-gray-300 text-sm">
                     {experience.period}
                 </time>
             </div>
@@ -157,10 +176,10 @@ const CV: React.FC = () => {
     );
 
     const renderEducationItem = (education: Education) => (
-        <article key={education.institution} className="mb-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-            <div className="flex justify-between items-center mb-2">
-                <h3 className="text-xl font-bold dark:text-white">{education.degree}</h3>
-                <time dateTime={education.period} className="text-gray-600 px-5 dark:text-gray-300 text-sm">
+        <article key={education.institution} className="mb-4 p-3 sm:p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-2 gap-1">
+                <h3 className="text-lg sm:text-xl font-bold dark:text-white">{education.degree}</h3>
+                <time dateTime={education.period} className="text-gray-600 dark:text-gray-300 text-sm">
                     {education.period}
                 </time>
             </div>
@@ -176,10 +195,12 @@ const CV: React.FC = () => {
     const cvData: CVData = translations.cv[language];
 
     return (
-        <main className="min-h-screen pt-20 pb-20 bg-gray-100 dark:bg-gray-900 transition-colors">
-            <div className="container mx-auto px-4">
-                <div className="grid md:grid-cols-[300px_1fr] gap-8">
-                    <aside className="hidden md:block bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg h-fit sticky top-20">
+        <main className="min-h-screen pt-16 sm:pt-20 pb-16 sm:pb-20 bg-gray-100 dark:bg-gray-900 transition-colors">
+            <div className="container mx-auto px-3 sm:px-4">
+                <div className="grid md:grid-cols-[300px_1fr] gap-4 sm:gap-8">
+                    {/* Sidebar */}
+                    <aside
+                        className="hidden md:block bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-xl shadow-lg h-fit sticky top-20">
                         <div className="flex justify-between items-center mb-4">
                             <h2 className="text-2xl font-semibold dark:text-white" id="skills-section">
                                 {cvData.skills}
@@ -193,33 +214,22 @@ const CV: React.FC = () => {
                         </div>
                     </aside>
 
-                    <div className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg">
-                        <div className="flex flex-col  mb-6">
-                            <div className="flex justify-between">
-                                <h1 id="name" className="text-3xl font-bold dark:text-white mb-2">
+                    {/* Main Content */}
+                    <div className="bg-white dark:bg-gray-800 p-4 sm:p-8 rounded-xl shadow-lg">
+                        {/* Header Section */}
+                        <div className="flex flex-col space-y-3 sm:space-y-4 mb-6">
+                            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3">
+                                <h1 id="name" className="text-2xl sm:text-3xl font-bold dark:text-white">
                                     {cvData.personalInfo.name}
                                 </h1>
-                                <div className="flex gap-2">
-                                    <button
-                                        onClick={() => setLanguage(language === 'en' ? 'fr' : 'en')}
-                                        className="px-3 py-1 bg-blue-700 text-white rounded-lg hover:bg-blue-600 transition"
-                                        aria-label={`Switch to ${language === 'en' ? 'French' : 'English'}`}
-                                    >
-                                        {language === 'en' ? 'FR' : 'EN'}
-                                    </button>
-                                    <button
-                                        onClick={toggleDark}
-                                        className="p-2 rounded-lg bg-gray-200 dark:bg-gray-700"
-                                        aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
-                                    >
-                                        {isDark ? '🌞' : '🌙'}
-                                    </button>
-                                </div>
+                                <HeaderControls />
                             </div>
-                            <div className="flex items-center gap-3">
+
+                            {/* Contact Info */}
+                            <div className="flex flex-wrap items-center gap-3">
                                 <a
                                     href={`mailto:${cvData.personalInfo.email}`}
-                                    className="text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400 transition-colors text-sm"
+                                    className="text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400 transition-colors text-sm break-all"
                                 >
                                     {cvData.personalInfo.email}
                                 </a>
@@ -229,6 +239,7 @@ const CV: React.FC = () => {
                                             key={`link-${index}`}
                                             href={link.link}
                                             target="_blank"
+                                            rel="noopener noreferrer"
                                             className="hover:opacity-75 transition-opacity"
                                         >
                                             <img
@@ -240,15 +251,17 @@ const CV: React.FC = () => {
                                     ))}
                                 </div>
                             </div>
+
                         </div>
 
+                        {/* Summary */}
                         <header className="mb-6">
-                            <p className="text-gray-600 dark:text-gray-300">{cvData.summary}</p>
+                            <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300">{cvData.summary}</p>
                         </header>
 
                         <section className="mb-6" aria-labelledby="experience-title">
                             <h2 id="experience-title"
-                                className="text-2xl font-semibold mb-4 border-b dark:border-gray-700 pb-2 dark:text-white">
+                                className="text-xl sm:text-2xl font-semibold mb-4 border-b dark:border-gray-700 pb-2 dark:text-white">
                                 {cvData.experience}
                             </h2>
                             {cvData.sections.experience.items.map(renderExperienceItem)}
@@ -256,7 +269,7 @@ const CV: React.FC = () => {
 
                         <section aria-labelledby="education-title">
                             <h2 id="education-title"
-                                className="text-2xl font-semibold mb-4 border-b dark:border-gray-700 pb-2 dark:text-white">
+                                className="text-xl sm:text-2xl font-semibold mb-4 border-b dark:border-gray-700 pb-2 dark:text-white">
                                 {cvData.sections.education.title}
                             </h2>
                             {cvData.sections.education.items.map(renderEducationItem)}
@@ -266,7 +279,7 @@ const CV: React.FC = () => {
                             <section aria-labelledby="mobile-skills-title">
                                 <h2 id="mobile-skills-title"
                                     className="text-2xl font-semibold mb-4 border-b dark:border-gray-700 pb-2 dark:text-white">
-                                    {cvData.skills}
+                                {cvData.skills}
                                 </h2>
                                 {renderLabelsSection()}
                                 <div className="grid md:grid-cols-2 gap-4">
