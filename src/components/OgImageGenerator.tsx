@@ -1,11 +1,17 @@
 import { useEffect, useRef } from 'react';
 
 const OGImageGenerator = () => {
-    const canvasRef = useRef(null);
+    // Properly type the canvas reference
+    const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
     useEffect(() => {
         const canvas = canvasRef.current;
+        // Add null check
+        if (!canvas) return;
+
         const ctx = canvas.getContext('2d');
+        // Add null check for context
+        if (!ctx) return;
 
         // Set canvas dimensions (recommended OG image size)
         canvas.width = 1200;
@@ -42,9 +48,12 @@ const OGImageGenerator = () => {
     }, []);
 
     const downloadImage = () => {
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+
         const link = document.createElement('a');
         link.download = 'og-image.png';
-        link.href = canvasRef.current.toDataURL('image/png');
+        link.href = canvas.toDataURL('image/png');
         link.click();
     };
 
