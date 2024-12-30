@@ -3,12 +3,14 @@ import { useLanguage } from '../contexts/LanguageContext';
 import {labelAssets, translations} from "../utils/translations.ts";
 import {useDarkMode} from "../contexts/DarkModeContext.tsx";
 import {CVData, Education, Experience} from "../interfaces.ts";
+import {getStructuredData} from "../utils/structuredData.ts";
+import {Helmet} from "react-helmet-async";
 
 const CV: React.FC = () => {
     const { language, setLanguage } = useLanguage();
     const [selectedCertificate, setSelectedCertificate] = useState<{ title: string; image: string } | null>(null);    const modalRef = useRef<HTMLDivElement>(null);
     const { isDark, toggleDark } = useDarkMode();
-
+    const structuredData = getStructuredData(language);
 
     // Handle Escape key for modal
     useEffect(() => {
@@ -195,141 +197,151 @@ const CV: React.FC = () => {
     const cvData: CVData = translations.cv[language];
 
     return (
-        <main className="min-h-screen pt-16 sm:pt-20 pb-16 sm:pb-20 bg-gray-100 dark:bg-gray-900 transition-colors">
-            <div className="container mx-auto px-3 sm:px-4">
-                <div className="grid md:grid-cols-[300px_1fr] gap-4 sm:gap-8">
-                    {/* Sidebar */}
-                    <aside
-                        className="hidden md:block bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-xl shadow-lg h-fit sticky top-20">
-                        <div className="flex justify-between items-center mb-4">
-                            <h2 className="text-2xl font-semibold dark:text-white" id="skills-section">
-                                {cvData.skills}
-                            </h2>
-                        </div>
-                        {renderLabelsSection()}
-                        <div className="space-y-4" role="region" aria-labelledby="skills-section">
-                            {(Object.keys(cvData.sections.skills.items) as CategoryKey[])
-                                .filter(category => category !== 'softSkills')
-                                .map(renderSkillCategory)}
-                        </div>
-                    </aside>
+        <>
+            <Helmet>
+                <title>{language === 'en' ? 'Ziad Lahrouni - Full Stack Developer' : 'Ziad Lahrouni - Développeur Full Stack'}</title>
+                <meta name="description" content={cvData.summary} />
+                <script type="application/ld+json">
+                    {JSON.stringify(structuredData)}
+                </script>
+            </Helmet>
 
-                    {/* Main Content */}
-                    <div className="bg-white dark:bg-gray-800 p-4 sm:p-8 rounded-xl shadow-lg">
-                        {/* Header Section */}
-                        <div className="flex flex-col space-y-3 sm:space-y-4 mb-6">
-                            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3">
-                                <h1 id="name" className="text-2xl sm:text-3xl font-bold dark:text-white">
-                                    {cvData.personalInfo.name}
-                                </h1>
-                                <HeaderControls />
-                            </div>
-
-                            {/* Contact Info */}
-                            <div className="flex flex-wrap items-center gap-3">
-                                <a
-                                    href={`mailto:${cvData.personalInfo.email}`}
-                                    className="text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400 transition-colors text-sm break-all"
-                                >
-                                    {cvData.personalInfo.email}
-                                </a>
-                                <div className="flex gap-3">
-                                    {cvData.personalInfo.links.map((link, index) => (
-                                        <a
-                                            key={`link-${index}`}
-                                            href={link.link}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="hover:opacity-75 transition-opacity"
-                                        >
-                                            <img
-                                                src={isDark ? link.darkLogo : link.logo}
-                                                alt={`${link.name} logo`}
-                                                className="w-5 h-5 hover:scale-110 transition-transform"
-                                            />
-                                        </a>
-                                    ))}
-                                </div>
-                            </div>
-
-                        </div>
-
-                        {/* Summary */}
-                        <header className="mb-6">
-                            <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300">{cvData.summary}</p>
-                        </header>
-
-                        <section className="mb-6" aria-labelledby="experience-title">
-                            <h2 id="experience-title"
-                                className="text-xl sm:text-2xl font-semibold mb-4 border-b dark:border-gray-700 pb-2 dark:text-white">
-                                {cvData.experience}
-                            </h2>
-                            {cvData.sections.experience.items.map(renderExperienceItem)}
-                        </section>
-
-                        <section aria-labelledby="education-title">
-                            <h2 id="education-title"
-                                className="text-xl sm:text-2xl font-semibold mb-4 border-b dark:border-gray-700 pb-2 dark:text-white">
-                                {cvData.sections.education.title}
-                            </h2>
-                            {cvData.sections.education.items.map(renderEducationItem)}
-                        </section>
-
-                        <div className="md:hidden">
-                            <section aria-labelledby="mobile-skills-title">
-                                <h2 id="mobile-skills-title"
-                                    className="text-2xl font-semibold mb-4 border-b dark:border-gray-700 pb-2 dark:text-white">
-                                {cvData.skills}
+            <main className="min-h-screen pt-16 sm:pt-20 pb-16 sm:pb-20 bg-gray-100 dark:bg-gray-900 transition-colors">
+                <div className="container mx-auto px-3 sm:px-4">
+                    <div className="grid md:grid-cols-[300px_1fr] gap-4 sm:gap-8">
+                        {/* Sidebar */}
+                        <aside
+                            className="hidden md:block bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-xl shadow-lg h-fit sticky top-20">
+                            <div className="flex justify-between items-center mb-4">
+                                <h2 className="text-2xl font-semibold dark:text-white" id="skills-section">
+                                    {cvData.skills}
                                 </h2>
-                                {renderLabelsSection()}
-                                <div className="grid md:grid-cols-2 gap-4">
-                                    {(Object.keys(cvData.sections.skills.items) as CategoryKey[])
-                                        .filter(category => category !== 'softSkills')
-                                        .map(renderSkillCategory)}
-                                </div>
-                            </section>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                            </div>
+                            {renderLabelsSection()}
+                            <div className="space-y-4" role="region" aria-labelledby="skills-section">
+                                {(Object.keys(cvData.sections.skills.items) as CategoryKey[])
+                                    .filter(category => category !== 'softSkills')
+                                    .map(renderSkillCategory)}
+                            </div>
+                        </aside>
 
-            {selectedCertificate && (
-                <div
-                    ref={modalRef}
-                    tabIndex={-1}
-                    className="fixed inset-0 bg-black bg-opacity-50 dark:bg-opacity-70 flex items-center justify-center z-50 p-4"
-                    role="dialog"
-                    aria-modal="true"
-                    aria-labelledby="modal-title"
-                >
-                    <div
-                        className="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-3xl max-h-[90vh] flex flex-col"
-                        role="document"
-                    >
-                        <div className="flex justify-between items-center p-4 border-b dark:border-gray-700">
-                            <h3 id="modal-title" className="text-xl font-semibold dark:text-white">
-                                {selectedCertificate.title}
-                            </h3>
-                            <button
-                                id="close-modal"
-                                className="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 p-2"
-                                onClick={handleCloseModal}
-                                aria-label="Close certificate modal"
-                            >
-                                ✕
-                            </button>
-                        </div>
-                        <div className="p-4 overflow-auto flex-1">
-                            <img
-                                src={selectedCertificate.image}
-                                alt="Certificate"
-                                className="w-full h-auto object-contain"
-                            />
+                        {/* Main Content */}
+                        <div className="bg-white dark:bg-gray-800 p-4 sm:p-8 rounded-xl shadow-lg">
+                            {/* Header Section */}
+                            <div className="flex flex-col space-y-3 sm:space-y-4 mb-6">
+                                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3">
+                                    <h1 id="name" className="text-2xl sm:text-3xl font-bold dark:text-white">
+                                        {cvData.personalInfo.name}
+                                    </h1>
+                                    <HeaderControls/>
+                                </div>
+
+                                {/* Contact Info */}
+                                <div className="flex flex-wrap items-center gap-3">
+                                    <a
+                                        href={`mailto:${cvData.personalInfo.email}`}
+                                        className="text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400 transition-colors text-sm break-all"
+                                    >
+                                        {cvData.personalInfo.email}
+                                    </a>
+                                    <div className="flex gap-3">
+                                        {cvData.personalInfo.links.map((link, index) => (
+                                            <a
+                                                key={`link-${index}`}
+                                                href={link.link}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="hover:opacity-75 transition-opacity"
+                                            >
+                                                <img
+                                                    src={isDark ? link.darkLogo : link.logo}
+                                                    alt={`${link.name} logo`}
+                                                    className="w-5 h-5 hover:scale-110 transition-transform"
+                                                />
+                                            </a>
+                                        ))}
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            {/* Summary */}
+                            <header className="mb-6">
+                                <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300">{cvData.summary}</p>
+                            </header>
+
+                            <section className="mb-6" aria-labelledby="experience-title">
+                                <h2 id="experience-title"
+                                    className="text-xl sm:text-2xl font-semibold mb-4 border-b dark:border-gray-700 pb-2 dark:text-white">
+                                    {cvData.experience}
+                                </h2>
+                                {cvData.sections.experience.items.map(renderExperienceItem)}
+                            </section>
+
+                            <section aria-labelledby="education-title">
+                                <h2 id="education-title"
+                                    className="text-xl sm:text-2xl font-semibold mb-4 border-b dark:border-gray-700 pb-2 dark:text-white">
+                                    {cvData.sections.education.title}
+                                </h2>
+                                {cvData.sections.education.items.map(renderEducationItem)}
+                            </section>
+
+                            <div className="md:hidden">
+                                <section aria-labelledby="mobile-skills-title">
+                                    <h2 id="mobile-skills-title"
+                                        className="text-2xl font-semibold mb-4 border-b dark:border-gray-700 pb-2 dark:text-white">
+                                        {cvData.skills}
+                                    </h2>
+                                    {renderLabelsSection()}
+                                    <div className="grid md:grid-cols-2 gap-4">
+                                        {(Object.keys(cvData.sections.skills.items) as CategoryKey[])
+                                            .filter(category => category !== 'softSkills')
+                                            .map(renderSkillCategory)}
+                                    </div>
+                                </section>
+                            </div>
                         </div>
                     </div>
                 </div>
-            )}
-        </main>
+
+                {selectedCertificate && (
+                    <div
+                        ref={modalRef}
+                        tabIndex={-1}
+                        className="fixed inset-0 bg-black bg-opacity-50 dark:bg-opacity-70 flex items-center justify-center z-50 p-4"
+                        role="dialog"
+                        aria-modal="true"
+                        aria-labelledby="modal-title"
+                    >
+                        <div
+                            className="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-3xl max-h-[90vh] flex flex-col"
+                            role="document"
+                        >
+                            <div className="flex justify-between items-center p-4 border-b dark:border-gray-700">
+                                <h3 id="modal-title" className="text-xl font-semibold dark:text-white">
+                                    {selectedCertificate.title}
+                                </h3>
+                                <button
+                                    id="close-modal"
+                                    className="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 p-2"
+                                    onClick={handleCloseModal}
+                                    aria-label="Close certificate modal"
+                                >
+                                    ✕
+                                </button>
+                            </div>
+                            <div className="p-4 overflow-auto flex-1">
+                                <img
+                                    src={selectedCertificate.image}
+                                    alt="Certificate"
+                                    className="w-full h-auto object-contain"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                )}
+            </main>
+        </>
     );
 };
 
