@@ -9,7 +9,11 @@ export const getStructuredData = (language: 'en' | 'fr') => ({
         "sameAs": [
         "https://github.com/zlahrouni",
         "https://linkedin.com/in/ziad-lahrouni/"
-    ],
+        ],
+        "knowsLanguage": [
+            "French",
+            "English"
+        ],
         "worksFor": {
         "@type": "Organization",
             "name": "CDC Informatique"

@@ -79,12 +79,14 @@ export const translations: Translations = {
               {
                 institution: 'Efrei, Paris',
                 degree: 'Full Stack Dev Manager',
+                link: 'https://www.efrei.fr/programmes-experts/mastere-developpeur-full-stack/',
                 period: 'September 2023 - August 2025',
                 details: ['Full Stack Development', 'Management', 'AI', 'DevOps']
               },
               {
                 institution: 'University of Western Brittany, Brest',
-                degree: 'Bachelor\'s Degree in Application Engineering and Development (L3)',
+                degree: 'Bachelor\'s in Application Engineering and Development (L3)',
+                link: 'https://formations.univ-brest.fr/fr/index/sciences-technologies-sante-STS/licence-XA/licence-mention-informatique-INR98WV8/parcours-conception-et-developpement-d-applications-INR99337.html',
                 period: 'September 2022 - July 2023',
                 details: ['Analysis, Design, and Web and Application Development', 'Algorithms and Data Structures', 'Architecture and Operating Systems']
               },
@@ -236,12 +238,14 @@ export const translations: Translations = {
               {
                 institution: 'Efrei, Paris',
                 degree: 'Manager en Développement Full Stack',
+                link: 'https://www.efrei.fr/programmes-experts/mastere-developpeur-full-stack/',
                 period: 'Septembre 2023 - Août 2025',
                 details: ['Développement Full Stack', 'Management', 'IA', 'DevOps']
               },
               {
                 institution: 'Université de Bretagne Occidentale, Brest',
                 degree: 'Licence 3 en Conception et Développement d\'Applications',
+                link: 'https://formations.univ-brest.fr/fr/index/sciences-technologies-sante-STS/licence-XA/licence-mention-informatique-INR98WV8/parcours-conception-et-developpement-d-applications-INR99337.html',
                 period: 'Septembre 2022 - Juillet 2023',
                 details: ['Analyse, Conception, et Développement Web et Applicatif', 'Algorithmes et Structures de Données', 'Architecture et Systèmes d\'Exploitation']
               },

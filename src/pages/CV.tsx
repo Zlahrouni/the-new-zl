@@ -8,9 +8,24 @@ import {Helmet} from "react-helmet-async";
 
 const CV: React.FC = () => {
     const { language, setLanguage } = useLanguage();
-    const [selectedCertificate, setSelectedCertificate] = useState<{ title: string; image: string } | null>(null);    const modalRef = useRef<HTMLDivElement>(null);
     const { isDark, toggleDark } = useDarkMode();
     const structuredData = getStructuredData(language);
+    const [selectedCertificate, setSelectedCertificate] = useState<{ title: string; image: string } | null>(null);
+    const [lastActiveElement, setLastActiveElement] = useState<HTMLElement | null>(null);
+    const modalRef = useRef<HTMLDivElement>(null);
+
+    const handleShowCertificate = (certificate: string, title: string) => {
+        // Store the currently active element before opening modal
+        setLastActiveElement(document.activeElement as HTMLElement);
+        setSelectedCertificate({title: title, image: certificate});
+    };
+
+    const handleCloseModal = () => {
+        // Restore focus to the last active element
+        lastActiveElement?.focus();
+        setSelectedCertificate(null);
+        setLastActiveElement(null);
+    };
 
     // Handle Escape key for modal
     useEffect(() => {
@@ -55,14 +70,6 @@ const CV: React.FC = () => {
             </button>
         </div>
     );
-
-    const handleShowCertificate = (certificate: string, title: string) => {
-        setSelectedCertificate({title: title, image: certificate});
-    };
-
-    const handleCloseModal = () => {
-        setSelectedCertificate(null);
-    };
 
     type CategoryKey = keyof typeof cvData.sections.skills.items;
 
@@ -179,18 +186,30 @@ const CV: React.FC = () => {
 
     const renderEducationItem = (education: Education) => (
         <article key={education.institution} className="mb-4 p-3 sm:p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-2 gap-1">
-                <h3 className="text-lg sm:text-xl font-bold dark:text-white">{education.degree}</h3>
-                <time dateTime={education.period} className="text-gray-600 dark:text-gray-300 text-sm">
+            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-2 gap-1">
+                <div className="flex-1">
+                    <h3 className="text-lg sm:text-xl font-bold dark:text-white">{education.degree}</h3>
+                    <h4 className="text-lg font-semibold text-gray-700 dark:text-gray-200 mb-2">{education.institution}</h4>
+                </div>
+                <time dateTime={education.period} className="text-gray-600 dark:text-gray-300 text-sm whitespace-nowrap">
                     {education.period}
                 </time>
             </div>
-            <h4 className="text-lg font-semibold text-gray-700 dark:text-gray-200 mb-2">{education.institution}</h4>
-            <ul className="list-disc list-inside text-gray-600 dark:text-gray-300" role="list">
+            <ul className="list-disc list-inside text-gray-600 dark:text-gray-300 mb-2" role="list">
                 {education.details.map((detail, index) => (
                     <li key={index} role="listitem">{detail}</li>
                 ))}
             </ul>
+            {education.link && (
+                <a href={education.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-700 dark:text-blue-400 text-xs underline"
+                    aria-label={`More information about ${education.institution}`}
+                >
+                    More Info
+                </a>
+                )}
         </article>
     );
 
@@ -200,7 +219,7 @@ const CV: React.FC = () => {
         <>
             <Helmet>
                 <title>{language === 'en' ? 'Ziad Lahrouni - Full Stack Developer' : 'Ziad Lahrouni - Développeur Full Stack'}</title>
-                <meta name="description" content={cvData.summary} />
+                <meta name="description" content={cvData.summary}/>
                 <script type="application/ld+json">
                     {JSON.stringify(structuredData)}
                 </script>
@@ -210,10 +229,10 @@ const CV: React.FC = () => {
                 <div className="container mx-auto px-3 sm:px-4">
                     <div className="grid md:grid-cols-[300px_1fr] gap-4 sm:gap-8">
                         {/* Sidebar */}
-                        <aside
-                            className="hidden md:block bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-xl shadow-lg h-fit sticky top-20">
+                        <aside id="desktop-skills"
+                               className="hidden md:block bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-xl shadow-lg h-fit sticky top-20">
                             <div className="flex justify-between items-center mb-4">
-                                <h2 className="text-2xl font-semibold dark:text-white" id="skills-section">
+                                <h2 className="text-2xl font-semibold dark:text-white" id="desktop-skills-title">
                                     {cvData.skills}
                                 </h2>
                             </div>
@@ -270,7 +289,7 @@ const CV: React.FC = () => {
                                 <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300">{cvData.summary}</p>
                             </header>
 
-                            <section className="mb-6" aria-labelledby="experience-title">
+                            <section id="experience-section" className="mb-6" aria-labelledby="experience-section">
                                 <h2 id="experience-title"
                                     className="text-xl sm:text-2xl font-semibold mb-4 border-b dark:border-gray-700 pb-2 dark:text-white">
                                     {cvData.experience}
@@ -278,7 +297,7 @@ const CV: React.FC = () => {
                                 {cvData.sections.experience.items.map(renderExperienceItem)}
                             </section>
 
-                            <section aria-labelledby="education-title">
+                            <section id="education-section" aria-labelledby="education-section">
                                 <h2 id="education-title"
                                     className="text-xl sm:text-2xl font-semibold mb-4 border-b dark:border-gray-700 pb-2 dark:text-white">
                                     {cvData.sections.education.title}
@@ -287,7 +306,7 @@ const CV: React.FC = () => {
                             </section>
 
                             <div className="md:hidden">
-                                <section aria-labelledby="mobile-skills-title">
+                                <section id="mobile-skills" aria-labelledby="skills-section">
                                     <h2 id="mobile-skills-title"
                                         className="text-2xl font-semibold mb-4 border-b dark:border-gray-700 pb-2 dark:text-white">
                                         {cvData.skills}
@@ -312,10 +331,32 @@ const CV: React.FC = () => {
                         role="dialog"
                         aria-modal="true"
                         aria-labelledby="modal-title"
+                        onKeyDown={(e) => {
+                            if (e.key === 'Tab') {
+                                // Trap focus within the modal
+                                const focusableElements = modalRef.current?.querySelectorAll(
+                                    'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+                                );
+
+                                if (focusableElements && focusableElements.length > 0) {
+                                    const firstElement = focusableElements[0] as HTMLElement;
+                                    const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
+
+                                    if (e.shiftKey && document.activeElement === firstElement) {
+                                        lastElement.focus();
+                                        e.preventDefault();
+                                    } else if (!e.shiftKey && document.activeElement === lastElement) {
+                                        firstElement.focus();
+                                        e.preventDefault();
+                                    }
+                                }
+                            }
+                        }}
                     >
                         <div
                             className="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-3xl max-h-[90vh] flex flex-col"
                             role="document"
+                            onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside modal
                         >
                             <div className="flex justify-between items-center p-4 border-b dark:border-gray-700">
                                 <h3 id="modal-title" className="text-xl font-semibold dark:text-white">
@@ -326,15 +367,23 @@ const CV: React.FC = () => {
                                     className="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 p-2"
                                     onClick={handleCloseModal}
                                     aria-label="Close certificate modal"
+                                    ref={(el) => {
+                                        // Automatically focus close button when modal opens
+                                        if (el) el.focus();
+                                    }}
                                 >
                                     ✕
                                 </button>
                             </div>
-                            <div className="p-4 overflow-auto flex-1">
+                            <div
+                                className="p-4 overflow-auto flex-1"
+                                tabIndex={0} // Make image container focusable
+                            >
                                 <img
                                     src={selectedCertificate.image}
                                     alt="Certificate"
                                     className="w-full h-auto object-contain"
+                                    tabIndex={-1}
                                 />
                             </div>
                         </div>
