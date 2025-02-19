@@ -1,9 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, ReactNode } from 'react';
 import { useLanguage } from "../contexts/LanguageContext";
 import { useDarkMode } from "../contexts/DarkModeContext";
 import { Link, useLocation } from 'react-router-dom';
 
-const Navbar = ({ children }) => {
+interface NavbarProps {
+    children: ReactNode;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ children }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const location = useLocation();
 
@@ -75,7 +79,13 @@ const Navbar = ({ children }) => {
 };
 
 // Helper component for navigation links
-const NavLink = ({ to, children, active }) => (
+interface NavLinkProps {
+    to: string;
+    children: ReactNode;
+    active: boolean;
+}
+
+const NavLink: React.FC<NavLinkProps> = ({ to, children, active }) => (
     <Link
         to={to}
         className={`
@@ -91,7 +101,13 @@ const NavLink = ({ to, children, active }) => (
 );
 
 // Helper component for mobile navigation links
-const MobileNavLink = ({ to, children, onClick }) => (
+interface MobileNavLinkProps {
+    to: string;
+    children: ReactNode;
+    onClick: () => void;
+}
+
+const MobileNavLink: React.FC<MobileNavLinkProps> = ({ to, children, onClick }) => (
     <Link
         to={to}
         onClick={onClick}
@@ -101,7 +117,7 @@ const MobileNavLink = ({ to, children, onClick }) => (
     </Link>
 );
 
-const LanguageThemeToggle = () => {
+const LanguageThemeToggle: React.FC = () => {
     const { language, setLanguage } = useLanguage();
     const { isDark, toggleDark } = useDarkMode();
 

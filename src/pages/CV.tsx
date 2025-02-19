@@ -5,19 +5,26 @@ import { getStructuredData } from "../utils/structuredData";
 import { labelAssets, translations } from "../utils/translations";
 import { Helmet } from "react-helmet-async";
 
+type CertificateType = {
+    title: string;
+    image: string;
+};
+
+type SectionType = 'experience' | 'education' | 'skills' | 'certifications' | null;
+
 const CV = () => {
     const { language } = useLanguage();
     const { isDark } = useDarkMode();
     const [openSection, setOpenSection] = useState(null);
-    const [selectedCertificate, setSelectedCertificate] = useState(null);
+    const [selectedCertificate, setSelectedCertificate] = useState<CertificateType | null>(null);
     const cvData = translations.cv[language];
 
-    const handleShowCertificate = (index, title) => {
+    const handleShowCertificate = (index: number, title: string) => {
         const certificate = index === 0 ? labelAssets.companieros.certificate : labelAssets.meta.certificate;
         setSelectedCertificate({ title, image: certificate });
     };
 
-    const SectionButton = ({ section, title }) => (
+    const SectionButton: React.FC<{ section: SectionType; title: string }> = ({ section, title }) => (
         <button
             onClick={() => setOpenSection(openSection === section ? null : section)}
             className="w-full py-6 text-left border-t border-gray-200 dark:border-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors group"
