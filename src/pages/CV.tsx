@@ -4,6 +4,7 @@ import { useDarkMode } from '../contexts/DarkModeContext';
 import { getStructuredData } from "../utils/structuredData";
 import { labelAssets, translations } from "../utils/translations";
 import { Helmet } from "react-helmet-async";
+import {SkillCategories, SkillItems} from "../interfaces.ts";
 
 type CertificateType = {
     title: string;
@@ -15,13 +16,12 @@ type SectionType = 'experience' | 'education' | 'skills' | 'certifications' | nu
 const CV = () => {
     const { language } = useLanguage();
     const { isDark } = useDarkMode();
-    const [openSection, setOpenSection] = useState(null);
+    const [openSection, setOpenSection] = useState<SectionType>(null);
     const [selectedCertificate, setSelectedCertificate] = useState<CertificateType | null>(null);
     const cvData = translations.cv[language];
 
-    const handleShowCertificate = (index: number, title: string) => {
-        const certificate = index === 0 ? labelAssets.companieros.certificate : labelAssets.meta.certificate;
-        setSelectedCertificate({ title, image: certificate });
+    const handleShowCertificate = (certificateImage: string, title: string) => {
+        setSelectedCertificate({ title, image: certificateImage });
     };
 
     const SectionButton: React.FC<{ section: SectionType; title: string }> = ({ section, title }) => (
@@ -90,29 +90,34 @@ const CV = () => {
         </div>
     );
 
-    const renderSkills = () => (
-        <div className="space-y-12">
-            {Object.keys(cvData.sections.skills.items)
-                .filter(category => category !== 'softSkills')
-                .map(category => (
-                    <div key={category} className="space-y-4">
-                        <h3 className="text-xl font-light dark:text-white">
-                            {cvData.sections.skills.categories[category]}
-                        </h3>
-                        <div className="flex flex-wrap gap-2">
-                            {cvData.sections.skills.items[category].map((skill, index) => (
-                                <span
-                                    key={index}
-                                    className="px-4 py-1.5 text-sm border border-gray-200 dark:border-gray-700 rounded-full dark:text-gray-300"
-                                >
-                                    {skill}
-                                </span>
-                            ))}
+    const renderSkills = () => {
+        const skillCategories = cvData.sections.skills.categories as SkillCategories;
+        const skillItems = cvData.sections.skills.items as SkillItems;
+
+        return (
+            <div className="space-y-12">
+                {Object.keys(skillItems)
+                    .filter(category => category !== 'softSkills')
+                    .map(category => (
+                        <div key={category} className="space-y-4">
+                            <h3 className="text-xl font-light dark:text-white">
+                                {skillCategories[category as keyof SkillCategories]}
+                            </h3>
+                            <div className="flex flex-wrap gap-2">
+                                {skillItems[category as keyof SkillItems].map((skill: string, index: number) => (
+                                    <span
+                                        key={`${skill}-${index}`}
+                                        className="px-4 py-1.5 text-sm border border-gray-200 dark:border-gray-700 rounded-full dark:text-gray-300"
+                                    >
+                                        {skill}
+                                    </span>
+                                ))}
+                            </div>
                         </div>
-                    </div>
-                ))}
-        </div>
-    );
+                    ))}
+            </div>
+        );
+    };
 
     const renderCertifications = () => (
         <div className="space-y-12">
