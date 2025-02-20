@@ -5,6 +5,7 @@ import { getStructuredData } from "../utils/structuredData";
 import { labelAssets, translations } from "../utils/translations";
 import { Helmet } from "react-helmet-async";
 import {SkillCategories, SkillItems} from "../interfaces.ts";
+import {cvPDF} from "../assets/statics.ts";
 
 type CertificateType = {
     title: string;
@@ -173,9 +174,18 @@ const CV = () => {
 
             <div className="max-w-3xl mx-auto px-4 pt-24 pb-16">
                 <div className="mb-16">
-                    <h1 className="text-3xl font-light mb-6 text-gray-800 dark:text-gray-200">
-                        {language === 'en' ? 'Portfolio & Career Path' : 'Portfolio & Parcours Professionnel'}
-                    </h1>
+                    <div className="flex justify-between items-start mb-6">
+                        <h1 className="text-3xl font-light text-gray-800 dark:text-gray-200">
+                            {language === 'en' ? 'Portfolio & Career Path' : 'Portfolio & Parcours Professionnel'}
+                        </h1>
+                        <a
+                            href={cvPDF}
+                            download="CV_Ziad_Lahrouni.pdf"
+                            className="px-4 py-2 text-sm border border-gray-200 dark:border-gray-700 rounded-full hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-gray-600 dark:text-gray-300"
+                        >
+                            {language === 'en' ? 'Download PDF' : 'Télécharger PDF'}
+                        </a>
+                    </div>
                     <p className="text-lg text-gray-600 dark:text-gray-400 mb-8">
                         {cvData.summary}
                     </p>

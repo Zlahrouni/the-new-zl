@@ -6,7 +6,7 @@ import {
   linkedInIcon,
   logoCompanieros,
   logoMeta
-} from "../assets/images.ts";
+} from "../assets/statics.ts";
 import {LabelAssets, Translations} from "../interfaces.ts";
 
 export const translations: Translations = {

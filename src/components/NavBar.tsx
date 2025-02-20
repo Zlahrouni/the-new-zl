@@ -2,6 +2,7 @@ import React, { useState, ReactNode } from 'react';
 import { useLanguage } from "../contexts/LanguageContext";
 import { useDarkMode } from "../contexts/DarkModeContext";
 import { Link, useLocation } from 'react-router-dom';
+import {cvPDF} from "../assets/statics.ts";
 
 interface NavbarProps {
     children: ReactNode;
@@ -20,25 +21,26 @@ const Navbar: React.FC<NavbarProps> = ({ children }) => {
             <nav className="fixed w-full bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg border-b border-gray-100 dark:border-gray-800 z-50">
                 <div className="container mx-auto px-6 py-4">
                     <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-4">
-                            <Link to="/" className="block group">
-                                <div className="border-2 border-neutral-900 dark:border-neutral-100 px-3 py-1 w-[60px] lg:group-hover:w-[160px] transition-all duration-300">
-                                    <div className="flex text-xl text-neutral-900 dark:text-neutral-100 overflow-hidden">
-                                        <div className="flex">
-                                            <span className="inline-block min-w-[12px]">Z</span>
-                                            <span className="w-0 lg:group-hover:w-auto transition-all duration-300 overflow-hidden hidden lg:block">iad</span>
-                                        </div>
-                                        <span className="pl-1"></span>
-                                        <div className="flex">
-                                            <span className="inline-block min-w-[12px]">L</span>
-                                            <span className="w-0 lg:group-hover:w-auto transition-all duration-300 overflow-hidden hidden lg:block">ahrouni</span>
-                                        </div>
+                        {/* Logo */}
+                        <Link to="/" className="block group">
+                            <div className="border-2 border-neutral-900 dark:border-neutral-100 px-3 py-1 w-[60px] lg:group-hover:w-[160px] transition-all duration-300">
+                                <div className="flex text-xl text-neutral-900 dark:text-neutral-100 overflow-hidden">
+                                    <div className="flex">
+                                        <span className="inline-block min-w-[12px]">Z</span>
+                                        <span className="w-0 lg:group-hover:w-auto transition-all duration-300 overflow-hidden hidden lg:block">iad</span>
+                                    </div>
+                                    <span className="pl-1"></span>
+                                    <div className="flex">
+                                        <span className="inline-block min-w-[12px]">L</span>
+                                        <span className="w-0 lg:group-hover:w-auto transition-all duration-300 overflow-hidden hidden lg:block">ahrouni</span>
                                     </div>
                                 </div>
-                            </Link>
+                            </div>
+                        </Link>
 
-                            {/* Navigation Links */}
-                            <div className="hidden md:flex space-x-4">
+                        {/* Desktop Navigation */}
+                        <div className="hidden md:flex items-center space-x-6">
+                            <div className="flex space-x-4">
                                 <NavLink to="/" active={location.pathname === '/'}>
                                     CV
                                 </NavLink>
@@ -46,10 +48,12 @@ const Navbar: React.FC<NavbarProps> = ({ children }) => {
                                     Blog
                                 </NavLink>
                             </div>
+                            <LanguageThemeToggle />
                         </div>
 
-                        {/* Mobile Menu Toggle */}
-                        <div className="md:hidden">
+                        {/* Mobile Menu Button */}
+                        <div className="flex items-center gap-4 md:hidden">
+                            <LanguageThemeToggle />
                             <button
                                 onClick={toggleMenu}
                                 className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
@@ -58,15 +62,15 @@ const Navbar: React.FC<NavbarProps> = ({ children }) => {
                                 {isMenuOpen ? '✕' : '☰'}
                             </button>
                         </div>
-
-                        <LanguageThemeToggle />
                     </div>
 
-                    {/* Mobile Menu */}
+                    {/* Mobile Menu Dropdown */}
                     {isMenuOpen && (
-                        <div className="md:hidden mt-4 space-y-2">
-                            <MobileNavLink to="/" onClick={toggleMenu}>CV</MobileNavLink>
-                            <MobileNavLink to="/blogs" onClick={toggleMenu}>Blog</MobileNavLink>
+                        <div className="absolute top-full left-0 right-0 bg-white/95 dark:bg-gray-900/95 backdrop-blur-lg border-b border-gray-100 dark:border-gray-800 md:hidden">
+                            <div className="container mx-auto px-6 py-4 space-y-3">
+                                <MobileNavLink to="/" onClick={toggleMenu}>CV</MobileNavLink>
+                                <MobileNavLink to="/blogs" onClick={toggleMenu}>Blog</MobileNavLink>
+                            </div>
                         </div>
                     )}
                 </div>
@@ -123,6 +127,13 @@ const LanguageThemeToggle: React.FC = () => {
 
     return (
         <div className="flex items-center gap-4">
+            <a
+                href={cvPDF}
+                download="CV_Ziad_Lahrouni.pdf"
+                className="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+            >
+                {language === 'en' ? 'Download CV' : 'Télécharger CV'}
+            </a>
             <button
                 onClick={() => setLanguage(language === 'en' ? 'fr' : 'en')}
                 className="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"

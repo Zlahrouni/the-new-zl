@@ -14,4 +14,18 @@ import githubDarkIcon from './icons/github-mark.png'
 import githubIcon from './icons/github-mark-white.png'
 import linkedInIcon from './icons/linkedin.png'
 
-export { franceFlag, ukFlag, logoCompanieros, logoMeta, jsCertificate, handimanagementCertificate, githubIcon, githubDarkIcon, linkedInIcon };
+// Documents
+import cvPDF from './cv-zl.pdf'
+
+export {
+    franceFlag,
+    ukFlag,
+    logoCompanieros,
+    logoMeta,
+    jsCertificate,
+    handimanagementCertificate,
+    githubIcon,
+    githubDarkIcon,
+    linkedInIcon,
+    cvPDF
+};
