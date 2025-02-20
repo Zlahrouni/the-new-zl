@@ -6,8 +6,6 @@ description: "A step-by-step guide for beginners on building their first website
 tags: ["web development", "beginner", "tutorial", "html", "css"]
 ---
 
-# From Zero to Website: A Rookie's Guide to Building Your First Site
-
 ## The Journey Begins: Starting Simple
 
 When I first decided to build my own website, the task seemed overwhelming. Where do I start? What technologies should I use? How complex should it be? After going through this journey myself, I've learned that the key is to start simple and grow gradually.
