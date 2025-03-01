@@ -5,6 +5,7 @@ import rehypeHighlight from 'rehype-highlight';
 import remarkGfm from 'remark-gfm';
 import 'highlight.js/styles/github-dark.css';
 import { Helmet } from "react-helmet-async";
+import rehypeRaw from 'rehype-raw';
 
 interface BlogMetadata {
     title?: string;
@@ -97,7 +98,7 @@ const BlogPost: React.FC = () => {
                 <article className="prose prose-lg dark:prose-invert max-w-none">
                     <ReactMarkdown
                         remarkPlugins={[remarkGfm]}
-                        rehypePlugins={[rehypeHighlight]}
+                        rehypePlugins={[rehypeRaw, rehypeHighlight]}
                     >
                         {postData.content}
                     </ReactMarkdown>

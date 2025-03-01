@@ -3,7 +3,7 @@ title: "From Zero to Website: A Rookie's Guide to Building Your First Site"
 date: "2024-02-19"
 author: "Ziad Lahrouni"
 description: "A step-by-step guide for beginners on building their first website, from basic HTML to modern frameworks"
-tags: ["english only""web development", "beginner", "tutorial", "html", "css"]
+tags: ["english only", "web development", "beginner", "tutorial", "html", "css"]
 ---
 # From Zero to Website: A Beginner's Journey
 
@@ -54,7 +54,7 @@ As you become comfortable with the basics, it's time to enhance your website's a
 
 ### Resources That Helped Me
 
-My learning journey was supported by several excellent resources. MDN Web Docs provided clear explanations of fundamental concepts. CSS-Tricks offered practical styling techniques that I could implement immediately. W3Schools gave me simple, practical examples I could modify for my needs. YouTube tutorials were invaluable for visual learning when text explanations weren't enough.
+My learning journey was supported by several excellent resources. <a href="https://developer.mozilla.org/en-US/" target="_blank" rel="noopener noreferrer">MDN Web Docs</a> provided clear explanations of fundamental concepts. <a href="https://css-tricks.com/" target="_blank" rel="noopener noreferrer">CSS-Tricks</a> offered practical styling techniques that I could implement immediately. <a href="https://www.w3schools.com/" target="_blank" rel="noopener noreferrer">W3Schools</a> gave me simple, practical examples I could modify for my needs. YouTube tutorials were invaluable for visual learning when text explanations weren't enough.
 
 ## Phase 3: Making It Interactive
 
@@ -66,15 +66,15 @@ As your knowledge expands, you can begin exploring more sophisticated tools that
 
 ### CSS Frameworks
 
-Consider using CSS frameworks to streamline your development process. Start with [Tailwind CSS](https://tailwindcss.com/) to take advantage of utility classes that let you build custom designs without leaving your HTML. Learn about responsive grids to create layouts that adapt to different screen sizes. Tailwind provides a solid foundation while allowing you unprecedented flexibility to customize as needed.
+Consider using CSS frameworks to streamline your development process. Start with <a href="https://tailwindcss.com/" target="_blank" rel="noopener noreferrer">Tailwind CSS</a> to take advantage of utility classes that let you build custom designs without leaving your HTML. Learn about responsive grids to create layouts that adapt to different screen sizes. Tailwind provides a solid foundation while allowing you unprecedented flexibility to customize as needed.
 
 ### JavaScript Frameworks
 
-As your projects become more complex, JavaScript frameworks can help manage that complexity. Begin with vanilla JavaScript to understand core concepts. When you're ready, explore React or Vue to create more dynamic interfaces. Learn about state management to handle complex interactions in your applications.
+As your projects become more complex, JavaScript frameworks can help manage that complexity. Begin with vanilla JavaScript to understand core concepts. When you're ready, explore <a href="https://react.dev/" target="_blank" rel="noopener noreferrer">React</a> or <a href="https://vuejs.org/" target="_blank" rel="noopener noreferrer">Vue</a> to create more dynamic interfaces. Learn about state management to handle complex interactions in your applications.
 
 ## Using AI as Your Coding Partner
 
-AI tools can be incredibly helpful companions on your coding journey, but use them wisely. Use ChatGPT to understand concepts that seem confusing. Get code explanations when documentation feels insufficient. Debug issues when you're stuck. Learn best practices to improve your skills.
+AI tools can be incredibly helpful companions on your coding journey, but use them wisely. Use <a href="https://chat.openai.com/" target="_blank" rel="noopener noreferrer">ChatGPT</a> to understand concepts that seem confusing. Get code explanations when documentation feels insufficient. Debug issues when you're stuck. Learn best practices to improve your skills.
 
 Remember that AI should enhance your learning, not replace it. Don't just copy-paste code without understanding it. Take time to understand how the code works. Modify and experiment with suggestions to make them your own. Use AI as a learning tool to accelerate your progress, not as a shortcut around the learning process.
 
@@ -82,7 +82,7 @@ Remember that AI should enhance your learning, not replace it. Don't just copy-p
 
 ### "My layout looks messy"
 
-When your design doesn't look right, simplify your approach. Start with a simple one-column layout rather than complex arrangements. Use CSS Grid or Flexbox to create clean, structured designs. Follow mobile-first design principles to ensure your site works on all devices. Test your site on different screen sizes to catch layout problems early.
+When your design doesn't look right, simplify your approach. Start with a simple one-column layout rather than complex arrangements. Use <a href="https://css-tricks.com/snippets/css/complete-guide-grid/" target="_blank" rel="noopener noreferrer">CSS Grid</a> or <a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/" target="_blank" rel="noopener noreferrer">Flexbox</a> to create clean, structured designs. Follow mobile-first design principles to ensure your site works on all devices. Test your site on different screen sizes to catch layout problems early.
 
 ### "I don't know what to include"
 
@@ -90,7 +90,7 @@ Content decisions can be overwhelming. Begin with basic information about yourse
 
 ### "The code gets complicated"
 
-As your project grows, organization becomes essential. Keep files organized with a clear structure. Comment your code to remember why you made certain choices. Make small, incremental changes rather than massive overhauls. Use version control with Git to track changes and revert when needed.
+As your project grows, organization becomes essential. Keep files organized with a clear structure. Comment your code to remember why you made certain choices. Make small, incremental changes rather than massive overhauls. Use version control with <a href="https://git-scm.com/" target="_blank" rel="noopener noreferrer">Git</a> to track changes and revert when needed.
 
 ## Learning Through Iteration
 
