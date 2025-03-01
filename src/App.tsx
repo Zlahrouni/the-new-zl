@@ -8,6 +8,8 @@ import './app.scss';
 import Navbar from "./components/NavBar.tsx";
 import BlogList from "./pages/BlogList.tsx";
 import BlogPost from "./components/blog-component.tsx";
+import PDFMetadataEditor from "./pages/tools/PdfMetadataEditor.tsx";
+import ToolList from "./pages/ToolList.tsx";
 
 const App: React.FC = () => {
     const { language } = useLanguage();
@@ -25,8 +27,10 @@ const App: React.FC = () => {
             <Navbar>
                 <Routes>
                     <Route path="/" element={<CV />} />
-                    <Route path="/blog/:filename" element={<BlogPost />} />
                     <Route path="/blogs" element={<BlogList />} />
+                    <Route path="/blog/:filename" element={<BlogPost />} />
+                    <Route path="/tools" element={<ToolList />} />
+                    <Route path="/tools/pdf-metadata-editor" element={<PDFMetadataEditor />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </Navbar>

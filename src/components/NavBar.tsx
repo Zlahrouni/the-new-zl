@@ -47,6 +47,9 @@ const Navbar: React.FC<NavbarProps> = ({ children }) => {
                                 <NavLink to="/blogs" active={location.pathname === '/blogs'}>
                                     Blog
                                 </NavLink>
+                                <NavLink to="/tools" active={location.pathname === '/tools'}>
+                                    Tools
+                                </NavLink>
                             </div>
                             <LanguageThemeToggle />
                         </div>
@@ -70,6 +73,7 @@ const Navbar: React.FC<NavbarProps> = ({ children }) => {
                             <div className="container mx-auto px-6 py-4 space-y-3">
                                 <MobileNavLink to="/" onClick={toggleMenu}>CV</MobileNavLink>
                                 <MobileNavLink to="/blogs" onClick={toggleMenu}>Blog</MobileNavLink>
+                                <MobileNavLink to="/tools" onClick={toggleMenu}>Tools</MobileNavLink>
                             </div>
                         </div>
                     )}
