@@ -44,33 +44,21 @@ const ToolList: React.FC = () => {
                 link: "/tools/pdf-metadata-editor",
                 tags: ["PDF", "Metadata", "Editor"],
             },
-            // {
-            //     name: language === 'en' ? "Image Compressor" : "Compresseur d'Images",
-            //     description: language === 'en'
-            //         ? "Compress your images while maintaining quality to reduce file size."
-            //         : "Compressez vos images tout en maintenant la qualité pour réduire la taille des fichiers.",
-            //     link: "/tools/image-compressor",
-            //     tags: ["Image", "Compression", "Optimizer"],
-            //     comingSoon: true
-            // },
-            // {
-            //     name: language === 'en' ? "Text Case Converter" : "Convertisseur de Casse de Texte",
-            //     description: language === 'en'
-            //         ? "Convert your text to different cases: uppercase, lowercase, title case, etc."
-            //         : "Convertissez votre texte dans différentes casses : majuscules, minuscules, casse de titre, etc.",
-            //     link: "/tools/text-case-converter",
-            //     tags: ["Text", "Converter", "Formatter"],
-            //     comingSoon: true
-            // },
             {
-                name: language === 'en' ? "JSON Formatter" : "Formateur JSON",
+                name: language === 'en' ? "Image Compressor" : "Compresseur d'Images",
+                description: language === 'en' ? "Compress your images while maintaining quality to reduce file size."
+                : "Compressez vos images tout en maintenant la qualité pour réduire la taille des fichiers.",
+                link: "/tools/image-optimizer",
+                tags: ["Image", "Compression", "Optimizer"],
+            },
+            {
+                name: language === 'en' ? "Accessibility Checker" : "Vérificateur d'Accessibilité",
                 description: language === 'en'
-                    ? "Format, validate and beautify your JSON data."
-                    : "Formatez, validez et embellissez vos données JSON.",
-                link: "/tools/json-formatter",
-                tags: ["JSON", "Formatter", "Validator"],
-                comingSoon: true
-            }
+                    ? "Validate your HTML against RGAA 4.1 accessibility standards and improve web accessibility."
+                    : "Validez votre HTML selon les normes d'accessibilité RGAA 4.1 et améliorez l'accessibilité web.",
+                link: "/tools/accessibility-checker",
+                tags: ["Accessibility", "RGAA", "HTML", "Validator"],
+            },
         ];
 
         setTools(toolList);

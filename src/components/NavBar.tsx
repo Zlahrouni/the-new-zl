@@ -11,6 +11,7 @@ interface NavbarProps {
 const Navbar: React.FC<NavbarProps> = ({ children }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const location = useLocation();
+    const { language } = useLanguage();
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -42,13 +43,13 @@ const Navbar: React.FC<NavbarProps> = ({ children }) => {
                         <div className="hidden md:flex items-center space-x-6">
                             <div className="flex space-x-4">
                                 <NavLink to="/" active={location.pathname === '/'}>
-                                    CV
+                                    {language === 'en' ? 'Resume' : 'CV'}
                                 </NavLink>
-                                <NavLink to="/blogs" active={location.pathname === '/blogs'}>
-                                    Blog
-                                </NavLink>
+                                {/*<NavLink to="/blogs" active={location.pathname === '/blogs'}>*/}
+                                {/*    Blog*/}
+                                {/*</NavLink>*/}
                                 <NavLink to="/tools" active={location.pathname === '/tools'}>
-                                    Tools
+                                    {language === 'en' ? 'Tools' : 'Outils'}
                                 </NavLink>
                             </div>
                             <LanguageThemeToggle />
@@ -71,9 +72,9 @@ const Navbar: React.FC<NavbarProps> = ({ children }) => {
                     {isMenuOpen && (
                         <div className="absolute top-full left-0 right-0 bg-white/95 dark:bg-gray-900/95 backdrop-blur-lg border-b border-gray-100 dark:border-gray-800 md:hidden">
                             <div className="container mx-auto px-6 py-4 space-y-3">
-                                <MobileNavLink to="/" onClick={toggleMenu}>CV</MobileNavLink>
-                                <MobileNavLink to="/blogs" onClick={toggleMenu}>Blog</MobileNavLink>
-                                <MobileNavLink to="/tools" onClick={toggleMenu}>Tools</MobileNavLink>
+                                <MobileNavLink to="/" onClick={toggleMenu}>{language === 'en' ? 'Resume' : 'CV'}</MobileNavLink>
+                                {/*<MobileNavLink to="/blogs" onClick={toggleMenu}>Blog</MobileNavLink>*/}
+                                <MobileNavLink to="/tools" onClick={toggleMenu}>{language === 'en' ? 'Tools' : 'Outils'}</MobileNavLink>
                             </div>
                         </div>
                     )}
