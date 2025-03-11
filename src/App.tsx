@@ -1,5 +1,5 @@
-import React, {useEffect, useMemo} from 'react';
-import {Routes, Route, useLocation} from 'react-router-dom';
+import React, {useEffect} from 'react';
+import {Routes, Route} from 'react-router-dom';
 import CV from './pages/CV';
 import NotFound from './pages/NotFound';
 import { DarkModeProvider } from "./contexts/DarkModeContext.tsx";
@@ -10,16 +10,15 @@ import PDFMetadataEditor from "./pages/tools/PdfMetadataEditor.tsx";
 import ToolList from "./pages/ToolList.tsx";
 import ImageOptimizer from "./pages/tools/ImageOptimizer.tsx";
 import AccessibilityChecker from "./pages/tools/AccessibilityChecker.tsx";
-import SupportBanner from "./components/SupportBanner.tsx";
 import Footer from "./components/Footer.tsx";
 
 const App: React.FC = () => {
     const { language } = useLanguage();
-    const location = useLocation();
+    // const location = useLocation();
 
-    const isToolsSection = useMemo(() => {
-        return location.pathname.startsWith('/tools');
-    }, [location.pathname]);
+    // const isToolsSection = useMemo(() => {
+    //     return location.pathname.startsWith('/tools');
+    // }, [location.pathname]);
 
     useEffect(() => {
         const description = language === 'en'
@@ -32,7 +31,7 @@ const App: React.FC = () => {
     return (
         <DarkModeProvider>
             <Navbar>
-                {isToolsSection && <SupportBanner key="support-banner" />}
+                {/*{isToolsSection && <SupportBanner key="support-banner" />}*/}
                 <Routes>
                     <Route path="/" element={<CV />} />
                     {/*<Route path="/blogs" element={<BlogList />} />*/}
