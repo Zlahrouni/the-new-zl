@@ -5,7 +5,7 @@ import { getStructuredData } from "../utils/structuredData";
 import { labelAssets, translations } from "../utils/translations";
 import { Helmet } from "react-helmet-async";
 import {SkillCategories, SkillItems} from "../interfaces.ts";
-import {cvPDF} from "../assets/statics.ts";
+import CVDownloadModal from "../components/CVDownloadModal";
 
 type CertificateType = {
     title: string;
@@ -19,6 +19,7 @@ const CV = () => {
     const { isDark } = useDarkMode();
     const [openSection, setOpenSection] = useState<SectionType>(null);
     const [selectedCertificate, setSelectedCertificate] = useState<CertificateType | null>(null);
+    const [isDownloadModalOpen, setIsDownloadModalOpen] = useState(false);
     const cvData = translations.cv[language];
 
     const handleShowCertificate = (certificateImage: string, title: string) => {
@@ -178,13 +179,12 @@ const CV = () => {
                         <h1 className="text-3xl font-light text-gray-800 dark:text-gray-200">
                             {language === 'en' ? 'Portfolio & Career Path' : 'Portfolio & Parcours Professionnel'}
                         </h1>
-                        <a
-                            href={cvPDF}
-                            download="CV_Ziad_Lahrouni.pdf"
+                        <button
+                            onClick={() => setIsDownloadModalOpen(true)}
                             className="px-4 py-2 text-sm border border-gray-200 dark:border-gray-700 rounded-full hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-gray-600 dark:text-gray-300"
                         >
                             {language === 'en' ? 'Download PDF' : 'Télécharger PDF'}
-                        </a>
+                        </button>
                     </div>
                     <p className="text-lg text-gray-600 dark:text-gray-400 mb-8">
                         {cvData.summary}
@@ -231,6 +231,13 @@ const CV = () => {
                 </div>
             </div>
 
+            {/* CV Download Modal */}
+            <CVDownloadModal
+                isOpen={isDownloadModalOpen}
+                onClose={() => setIsDownloadModalOpen(false)}
+            />
+
+            {/* Certificate Modal */}
             {selectedCertificate && (
                 <div
                     className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4"

@@ -2,7 +2,7 @@ import React, { useState, ReactNode } from 'react';
 import { useLanguage } from "../contexts/LanguageContext";
 import { useDarkMode } from "../contexts/DarkModeContext";
 import { Link, useLocation } from 'react-router-dom';
-import {cvPDF} from "../assets/statics.ts";
+import CVDownloadModal from './CVDownloadModal';
 
 interface NavbarProps {
     children: ReactNode;
@@ -10,6 +10,7 @@ interface NavbarProps {
 
 const Navbar: React.FC<NavbarProps> = ({ children }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isDownloadModalOpen, setIsDownloadModalOpen] = useState(false);
     const location = useLocation();
     const { language } = useLanguage();
 
@@ -45,19 +46,20 @@ const Navbar: React.FC<NavbarProps> = ({ children }) => {
                                 <NavLink to="/" active={location.pathname === '/'}>
                                     {language === 'en' ? 'Resume' : 'CV'}
                                 </NavLink>
-                                {/*<NavLink to="/blogs" active={location.pathname === '/blogs'}>*/}
-                                {/*    Blog*/}
-                                {/*</NavLink>*/}
                                 <NavLink to="/tools" active={location.pathname === '/tools'}>
                                     {language === 'en' ? 'Tools' : 'Outils'}
                                 </NavLink>
                             </div>
-                            <LanguageThemeToggle />
+                            <LanguageThemeToggle
+                                onDownloadClick={() => setIsDownloadModalOpen(true)}
+                            />
                         </div>
 
                         {/* Mobile Menu Button */}
                         <div className="flex items-center gap-4 md:hidden">
-                            <LanguageThemeToggle />
+                            <LanguageThemeToggle
+                                onDownloadClick={() => setIsDownloadModalOpen(true)}
+                            />
                             <button
                                 onClick={toggleMenu}
                                 className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
@@ -73,13 +75,19 @@ const Navbar: React.FC<NavbarProps> = ({ children }) => {
                         <div className="absolute top-full left-0 right-0 bg-white/95 dark:bg-gray-900/95 backdrop-blur-lg border-b border-gray-100 dark:border-gray-800 md:hidden">
                             <div className="container mx-auto px-6 py-4 space-y-3">
                                 <MobileNavLink to="/" onClick={toggleMenu}>{language === 'en' ? 'Resume' : 'CV'}</MobileNavLink>
-                                {/*<MobileNavLink to="/blogs" onClick={toggleMenu}>Blog</MobileNavLink>*/}
                                 <MobileNavLink to="/tools" onClick={toggleMenu}>{language === 'en' ? 'Tools' : 'Outils'}</MobileNavLink>
                             </div>
                         </div>
                     )}
                 </div>
             </nav>
+
+            {/* CV Download Modal */}
+            <CVDownloadModal
+                isOpen={isDownloadModalOpen}
+                onClose={() => setIsDownloadModalOpen(false)}
+            />
+
             <main className="pt-20">
                 {children}
             </main>
@@ -126,19 +134,22 @@ const MobileNavLink: React.FC<MobileNavLinkProps> = ({ to, children, onClick }) 
     </Link>
 );
 
-const LanguageThemeToggle: React.FC = () => {
+interface LanguageThemeToggleProps {
+    onDownloadClick: () => void;
+}
+
+const LanguageThemeToggle: React.FC<LanguageThemeToggleProps> = ({ onDownloadClick }) => {
     const { language, setLanguage } = useLanguage();
     const { isDark, toggleDark } = useDarkMode();
 
     return (
         <div className="flex items-center gap-4">
-            <a
-                href={cvPDF}
-                download="CV_Ziad_Lahrouni.pdf"
+            <button
+                onClick={onDownloadClick}
                 className="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
             >
                 {language === 'en' ? 'Download CV' : 'Télécharger CV'}
-            </a>
+            </button>
             <button
                 onClick={() => setLanguage(language === 'en' ? 'fr' : 'en')}
                 className="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
